@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="discoveryService" />
+        <module name="dinnerService" />
+        <module name="api-gateway" />
+        <module name="dinner-service" />
+        <module name="discovery-service" />
+        <module name="gateway" />
+        <module name="userService" />
+      </profile>
+      <profile name="Annotation profile for reservationService" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="reservationService" />
+      </profile>
+      <profile name="Annotation profile for notificationService" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="notificationService" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api_gateway" target="17" />
+      <module name="DinnerService" target="17" />
+      <module name="menuService" target="17" />
+      <module name="notification-service" target="17" />
+      <module name="NotificationService" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="DinnerService" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="api-gateway" options="-parameters" />
+      <module name="api_gateway" options="-parameters" />
+      <module name="dinner-service" options="-parameters" />
+      <module name="dinnerService" options="-parameters" />
+      <module name="discovery-service" options="-parameters" />
+      <module name="discoveryService" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="menuService" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
+      <module name="notificationService" options="-parameters" />
+      <module name="reservationService" options="-parameters" />
+      <module name="userService" options="-parameters" />
+    </option>
+  </component>
+</project>

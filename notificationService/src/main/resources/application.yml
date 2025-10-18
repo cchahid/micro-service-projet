@@ -1,0 +1,72 @@
+# src/main/resources/application.yml
+
+spring:
+  application:
+    name: notification-service
+  server:
+    port: 8085 # Your service will run on this port
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/chahid # Use 'localhost' as host when running on host machine
+#    driverClassName: org.postgresql.Driver
+#    username: chahid # Matches POSTGRES_USER in docker-compose.yml
+#    password: chahid # Matches POSTGRES_PASSWORD in docker-compose.yml
+
+#  jpa: # IMPORTANT: This 'jpa' block is moved to be directly under 'spring', not nested under 'datasource'
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect # Set the correct Hibernate dialect for PostgreSQL
+#    show-sql: true # For logging SQL queries
+#    hibernate:
+#      ddl-auto: update # Hibernate will manage table creation/updates based on your entities
+
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console  # URL pour accéder à la console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update   # ou create-drop pour recréer à chaque redémarrage
+    show-sql: true
+      # Disable H2 console as you are switching to PostgreSQL
+
+  kafka:
+    bootstrap-servers: localhost:9092 # Assuming your Spring Boot app runs on the host machine and connects to Docker's published Kafka port
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.use.type.headers: false
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  mail:
+    host: localhost # IMPORTANT: Use 'localhost' as the host for MailDev when running on host machine
+    port: 1025 # IMPORTANT: This is the SMTP port for MailDev
+    username: test@maildev.local # MailDev typically accepts any username/password
+    password: password # MailDev typically accepts any username/password
+    properties:
+      mail.smtp.auth: false # MailDev typically does not require authentication by default
+      mail.smtp.starttls.enable: false # MailDev typically does not use TLS by default
+      # You can remove or comment out 'mail.smtp.ssl.trust' for MailDev as it's not needed.
+
+app:
+  kafka:
+    topics:
+      dinner-started: dinnerStarted
+      dinner-ended: dinnerEnded
+      reservation-created: reservationCreated
+      reservation-canceled: reservationCanceled
+      guest-created: guest-topic
+      host-created: host-topic

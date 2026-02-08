@@ -41,8 +41,11 @@ public class ReservationServiceImpl implements ReservationService {
                  DinnerId.generate(command.dinnerId()),
                  GuestId.generate(command.guestId())));
          eventPublisher.publishEvent(new ReservationCreated(
+                 reservation.getId().value(),
                  reservation.getDinnerId().value(),
-                 reservation.getGuestId().value()
+                 reservation.getGuestId().value(),
+                 reservation.getReservationDate(),
+                 command.restaurantName() != null ? command.restaurantName() : "Unknown Restaurant"
                  )
          );
          return  new ReservationCreatedResponse(reservation.getId().value());
@@ -61,7 +64,11 @@ public class ReservationServiceImpl implements ReservationService {
         if(reservation.isEmpty()){
             throw new IllegalArgumentException("Reservation not found for id: " + reservationId);
         }
-        eventPublisher.publishEvent(new ReservationCanceled(reservation.get().getDinnerId().value(),reservation.get().getGuestId().value()));
+        eventPublisher.publishEvent(new ReservationCanceled(
+                reservation.get().getId().value(),
+                reservation.get().getDinnerId().value(),
+                reservation.get().getGuestId().value()
+        ));
         reservationRepository.deleteReservation(reservationId);
     }
 

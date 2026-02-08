@@ -34,7 +34,8 @@ public class ReservationMapper {
         return new CreateReservationCommand(
                 request.dinnerId(),
                 request.guestId(),
-                request.reservationDate()
+                request.reservationDate(),
+                null  // restaurantName not in request yet
         );
     }
 }

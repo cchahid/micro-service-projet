@@ -5,5 +5,6 @@ import java.time.LocalDateTime;
 public record CreateReservationCommand(
         Long dinnerId,
         Long guestId,
-        LocalDateTime reservationDate
+        LocalDateTime reservationDate,
+        String restaurantName
 ) {}
